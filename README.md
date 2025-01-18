@@ -1,4 +1,4 @@
-# TIME SERIES FORECASTING USING DEEP LEARNING 
+# TIME SERIES FORECASTING USING DEEP LEARNING (hourly power consumption data)
 
 ## Project objectives
 
