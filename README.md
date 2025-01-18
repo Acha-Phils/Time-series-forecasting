@@ -9,7 +9,7 @@ and Mean Absolute Percent Error (MAPE).
 
 ### Data source 
 
-The project utilises data obtained from https://www.kaggle.com/datasets/raminhuseyn/energyconsumption-dataset on hourly power consumption, sourced from Pennsylvania-New JerseyMaryland (PJM)'s website, with measurements in Megawatts (MW). PJM is a regional transmission organisation in the United States, operating within the Eastern Interconnection grid. It oversees an electric transmission system that services all or parts of Delaware, Illinois, Indiana, Kentucky, Maryland, Michigan, New Jersey, North Carolina, Ohio, Pennsylvania, Tennessee, Virginia, West Virginia, and the District of Columbia.
+The project utilises data obtained from https://www.kaggle.com/datasets/raminhuseyn/energy-consumption-dataset on hourly power consumption, sourced from Pennsylvania-New JerseyMaryland (PJM)'s website, with measurements in Megawatts (MW). PJM is a regional transmission organisation in the United States, operating within the Eastern Interconnection grid. It oversees an electric transmission system that services all or parts of Delaware, Illinois, Indiana, Kentucky, Maryland, Michigan, New Jersey, North Carolina, Ohio, Pennsylvania, Tennessee, Virginia, West Virginia, and the District of Columbia.
 
 ### Tools used in the project
 - Excel - Data inspection
