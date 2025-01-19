@@ -24,6 +24,8 @@ It was then sorted by ‘DateTime’ to ensure correct chronological order of ti
 I wrote a function to read the data in various formats based on the requirements of the algorithm being modelled. The DataFrame contains two columns: a date stamp in DateTime format (‘ds’ for the Prophet model) and PJME_MW (‘y’ for Prophet), representing hourly power consumption. 
 The data was divided into training 70% and test set 30% for SARIMAX and Prophet models and 70% (training), 20% (test), and 10% (validation) sets for deep learning model (LSTM). 
 
+![Overall data](https://github.com/user-attachments/assets/555b48a9-ec6e-4270-8cdf-21216cd45042)
+
 ### Evaluation Metrics 
 
 - Root Mean Squared Error (RMSE), 
@@ -36,10 +38,19 @@ The data was divided into training 70% and test set 30% for SARIMAX and Prophet 
 
 Because of the large data set and limited computing resources and the extensive time required to train such a model, it was not feasible to use the entire training set. Instead, the last 3500 timesteps of the hourly power consumption data were utilised. These 3500 data points were divided into 70% (2450 timesteps) for training and 30% (1050 timesteps) for testing. Auto-correlation and partial auto-correlation plots of the series were generated, and the model was subsequently fitted with a seasonality of 24 hours. Akaike Information Criterion (AIC) was used to automatically select the best model (with least AIC). The model's performance is visualised on a plot and evaluated.
 
+![Training test and predicted values SARIMAX](https://github.com/user-attachments/assets/b7880911-b564-420c-8abd-e7595651b3af)
+
 #### Prophet model
 
 The training and test sets have 70% (101756 timesteps) and 30% (43610 timesteps), respectively. First, we trained a model that considers only daily, weekly, and yearly seasonality. Then, we trained another
 model that also accounted for monthly seasonality within the year. The results of these models were plotted and evaluated.
+
+![Training test and predicted values Prophet](https://github.com/user-attachments/assets/3a2e26b8-287e-4c11-aaf5-1a36b39d7d32)
+
+Due to the large data size, it is difficult to see the performance of the model in detail. The figure below is a closer examination of the model's prediction from January 2018. The model tends to underpredict power consumption during certain periods and overpredict it during
+others.
+
+![Zoom in Prophet](https://github.com/user-attachments/assets/c127eccc-2eeb-40d0-ba60-f8bcbad7fe93)
 
 #### LSTM model
 
@@ -49,11 +60,28 @@ A helper function ‘create_dataset’ was defined to generate the input feature
 LSTM Network: An LSTM network was built using Keras. which consists of an LSTM layer with 32 units followed by a Dense layer with 1 unit. The model was trained on the training data for 50 epochs with
 a batch size of 32, using early stopping and validating against the validation set. The results were plotted and evaluated.
 
+![training test and validation sets](https://github.com/user-attachments/assets/cee14aae-9a91-47fe-b4b7-a9993fcc27f9)
+
+Becaue of the large data size, it is difficult to see the performance of the model in detail, so I zoomin to the last month of power consumption data in the test set and its prediction. This shows the model predicts the actual test values very well except for some slight discrepancies.
+
+![Zoom in LSTM](https://github.com/user-attachments/assets/901f0d6b-f10c-48fc-a9d2-4c4d1fc9c708)
+
+The loss plot for the LSTM model which shows the training and validation loss over the epochs. Initially, the training loss decreases sharply, indicating that the model is quickly learning and
+adjusting its weights. The validation loss follows a similar pattern, decreasing steadily and remaining closely aligned with the training loss. After about five epochs, both the training and validation losses stabilise at very low values, suggesting that the model has converged. The fact that the validation loss does not significantly diverge from the training loss indicates that the model is not overfitting and generalises well to unseen data.
+
+![Loss function](https://github.com/user-attachments/assets/9bff5789-6e4b-4438-92db-7f2ebe7639fb)
+
 ### Results/Findings 
 
 - LSTM model demonstrated the best predictive accuracy, although it required the longest training time. Its ability to capture complex temporal dependencies made it particularly suited for power consumption data, which involves complex patterns that simpler models struggle to represent. 
 - Prophet model offered a strong balance between accuracy and training efficiency, particularly when incorporating multiple seasonality, making it a practical choice when computational resources are limited.
 - The SARIMAX model, while traditionally effective for time series forecasting, showed limitations with this dataset, both in terms of accuracy and the computational effort required, partly due to the challenges in handling large datasets and complex seasonal components.
+
+The table below  provides a comparison of the three different models – SARIMAX, Prophet and LSTM – based
+on their performance metrics when predicting power consumption. 
+
+![Summary table](https://github.com/user-attachments/assets/f7951d20-3a40-4296-889f-c8416dca53c4)
+
 
 ### Conclusion and Recommendation 
 - These findings emphasise the need for careful model selection based on the specific requirements of a forecasting task.
